@@ -1,15 +1,15 @@
 import socket
 import ssl
 import threading
-
 from cryptography import x509
-from cryptography.x509.oid import  NameOID
+from cryptography.x509.oid import NameOID
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.backends import default_backend
 
 from datetime import datetime, timedelta
 import OpenSSL.crypto
+
 import random
 
 
@@ -24,7 +24,7 @@ HEADERSIZE = 64
 
 
 
-with open('ca_cert.pem') as crt_file:
+with open('ca_cert.crt') as crt_file:
     CA_cert = crt_file.read()
     CA_cert = OpenSSL.crypto.load_certificate( OpenSSL.crypto.FILETYPE_PEM, CA_cert)
     CA_cert = x509.load_pem_x509_certificate(OpenSSL.crypto.dump_certificate(OpenSSL.crypto.FILETYPE_PEM, CA_cert), default_backend())
