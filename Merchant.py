@@ -5,7 +5,7 @@ import time
 
 class Merchant:
     def __init__(self):
-        self.items = {'condom': 1000, 'sex toy': 2000}
+        self.items = {'X product': 1000, 'Y product': 2000}
         self.back_account = None
         self.sll_sock = None
 

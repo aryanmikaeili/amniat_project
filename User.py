@@ -8,7 +8,6 @@ class User:
         self.bought_items = {'nothing': 0}
         self.bank_account = None
         self.bitcoin_account = None
-        # should be moved to bank account later!
         self.balance = 1000000
         self.sll_sock = None
 
