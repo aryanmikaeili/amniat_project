@@ -61,7 +61,7 @@ class Menu:
 class Account(Menu):
     card: str
     pin: str
-    balance : float
+    balance: float
 
     @classmethod
     def generate(cls) -> 'Account':
@@ -136,12 +136,34 @@ class BankingSystem(Menu):
                 account.screen()
                 break
 
+    def transfer(self):
+        card = input('Enter your card number: ')
+        pin = getpass('Enter your PIN: ')
+
+        account1 = self.accounts.get(card)
+        if account1 is None or account1.pin != pin:
+            print('Wrong card or PIN')
+            sleep(2)
+        else:
+            print('You have successfully logged in!')
+            card2 = input('Enter the card number you wish to transfer money for: ')
+            transfer_value = float(input("enter the amount:"))
+            account2 = self.accounts.get(card2)
+            if transfer_value > account1.balance or transfer_value < 0:
+                print("invalid transaction")
+                return False
+            account1.balance -= transfer_value
+            account2.balance += transfer_value
+            print("You have sucessfully transfered the money. your new balance is :")
+            print(account1.balance)
+
+
     def exit(self) -> bool:
         print('Bye!')
         return True
 
 
-    # From here is for crt and connection**********************************************************
+    #********************************************************** From here is for crt and connection **********************************************************
     def connect_with_ca(self):
         context = ssl.create_default_context()
         context.verify_mode = ssl.CERT_REQUIRED
@@ -230,7 +252,7 @@ class BankingSystem(Menu):
         self.sll_sock = context.wrap_socket(s, server_side=True)
         print("We are online!")
 
-        # Until here is for crt and connection**********************************************************
+        # ********************************************************** Until here is for crt and connection**********************************************************
 
 
 
@@ -244,6 +266,7 @@ class BankingSystem(Menu):
         ('Exit', exit),
         ('Create an account', create_account),
         ('Log into an account', log_in),
+        ('transfer money', transfer)
     )
 
 
